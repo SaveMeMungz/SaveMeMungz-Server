@@ -1,4 +1,4 @@
-package com.dangbalzadle.savememungz;
+package team.dangbalzadle.savememungz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

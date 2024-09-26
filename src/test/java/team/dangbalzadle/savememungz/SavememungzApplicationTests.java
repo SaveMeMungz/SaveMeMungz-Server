@@ -1,4 +1,4 @@
-package com.dangbalzadle.savememungz;
+package team.dangbalzadle.savememungz;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
