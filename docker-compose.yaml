@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mungdb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "root1234"
+      MYSQL_DATABASE: "mungdb"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "1234"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./database/datadir/:/var/lib/mysql
+      - ./database/init/:/docker_entrypoint-initdb.d/
