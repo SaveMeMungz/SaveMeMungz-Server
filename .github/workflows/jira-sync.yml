@@ -20,23 +20,22 @@ jobs:
       - name: Process Issue Body
         id: process_body
         run: |
-            BODY=$(echo '${{ github.event.issue.body }}' | sed 's/<!--.*-->//g' | awk '
-            BEGIN {
-            print "h2. ✨ 어떤 기능인가요?"
+          BODY=$(echo '${{ github.event.issue.body }}' | sed 's/<!--.*-->//g' | awk '
+          BEGIN { print "h2. ✨ 어떤 기능인가요?"
             feature_section = 0
             todo_section = 0
             reference_section = 0
-         }
-            /^## 어떤 기능인가요\?/ {feature_section = 1; next}
-            /^## 작업 상세 내용/ {feature_section = 0; todo_section = 1; print "\nh2. 📚 작업 상세 내용"; next}
-            /^## 참고할만한 자료/ {todo_section = 0; reference_section = 1; print "\nh2. 👀 참고할만한 자료(선택)"; next}
-            feature_section && !/^$/ {print}
-            todo_section {print}
-            reference_section {print}
-            ')
-            echo "processed_body<<EOF" >> $GITHUB_OUTPUT
-            echo "$BODY" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
+          }
+          /^## 어떤 기능인가요\?/ {feature_section = 1; next}
+          /^## 작업 상세 내용/ {feature_section = 0; todo_section = 1; print "\nh2. 📚 작업 상세 내용"; next}
+          /^## 참고할만한 자료/ {todo_section = 0; reference_section = 1; print "\nh2. 👀 참고할만한 자료(선택)"; next}
+          feature_section && !/^$/ {print}
+          todo_section {print}
+          reference_section {print}
+          ')
+          echo "processed_body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create Issue
         uses: atlassian/gajira-create@v3
