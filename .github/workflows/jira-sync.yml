@@ -2,6 +2,8 @@ name: Create Jira issue
 on:
   issues:
     types: [opened]
+  push:
+    branches: [ mater ]
 
 jobs:
   create-issue:
