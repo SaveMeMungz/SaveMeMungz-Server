@@ -25,13 +25,13 @@ jobs:
           LABELS=$(echo '${{ toJson(github.event.issue.labels) }}' | jq -r '.[].name' | paste -sd "," -)
           
           BODY=$(echo '${{ github.event.issue.body }}' | sed 's/<!--.*-->//g' | awk '
-          BEGIN {
-            print "h2. 이슈 상세 정보"
-            print "* GitHub Issue URL: '${ISSUE_URL}'"
-            print "* 생성자: ${CREATOR}"
-            print "* 라벨: ${LABELS}\n"
-            in_section = 0
-          }
+#          BEGIN {
+#            print "h2. 이슈 상세 정보"
+#            print "* GitHub Issue URL: '${ISSUE_URL}'"
+#            print "* 생성자: ${CREATOR}"
+#            print "* 라벨: ${LABELS}\n"
+#            in_section = 0
+#          }
           /^## ✨ 어떤 기능인가요\?/ {
             print "h2. ✨ 어떤 기능인가요?"
             in_section = 1
