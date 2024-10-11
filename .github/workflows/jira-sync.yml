@@ -26,10 +26,6 @@ jobs:
           
           BODY=$(echo '${{ github.event.issue.body }}' | sed 's/<!--.*-->//g' | awk '
           BEGIN {
-#            print "h2. 이슈 상세 정보"
-#            print "* GitHub Issue URL: '${ISSUE_URL}'"
-#            print "* 생성자: ${CREATOR}"
-#            print "* 라벨: ${LABELS}\n"
             in_section = 0
           }
           /^## ✨ 어떤 기능인가요\?/ {
