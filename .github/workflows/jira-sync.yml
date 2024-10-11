@@ -29,19 +29,27 @@ jobs:
             print "h2. 이슈 상세 정보"
             print "* GitHub Issue URL: '${ISSUE_URL}'"
             print "* 생성자: ${CREATOR}"
-            print "* 라벨: ${LABELS}"
-            print "\nh2. ✨ 어떤 기능인가요?"
-            feature_section = 0
-            todo_section = 0
-            reference_section = 0
+            print "* 라벨: ${LABELS}\n"
+            in_section = 0
           }
-          /^## 어떤 기능인가요\?/ {feature_section = 1; next}
-          /^## 작업 상세 내용/ {feature_section = 0; todo_section = 1; print "\nh2. 📚 작업 상세 내용"; next}
-          /^## 참고할만한 자료/ {todo_section = 0; reference_section = 1; print "\nh2. 👀 참고할만한 자료(선택)"; next}
-          /^!\[.*\]\(.*\)/ {gsub(/^!\[(.*)\]\((.*)\)/, "!\\2|thumbnail!"); print; next}
-          feature_section && !/^$/ {print}
-          todo_section {print}
-          reference_section {print}
+          /^## ✨ 어떤 기능인가요\?/ {
+            print "h2. ✨ 어떤 기능인가요?"
+            in_section = 1
+            next
+          }
+          /^## 📚 작업 상세 내용/ {
+            print "\nh2. 📚 작업 상세 내용"
+            in_section = 2
+            next
+          }
+          /^## 👀 참고할만한 자료/ {
+            print "\nh2. 👀 참고할만한 자료(선택)"
+            in_section = 3
+            next
+          }
+          in_section == 1 {print}
+          in_section == 2 {print}
+          in_section == 3 {print}
           ')
           echo "processed_body<<EOF" >> $GITHUB_OUTPUT
           echo "$BODY" >> $GITHUB_OUTPUT
