@@ -20,8 +20,17 @@ jobs:
       - name: Process Issue Body
         id: process_body
         run: |
+          ISSUE_URL="${{ github.event.issue.html_url }}"
+          CREATOR="${{ github.event.issue.user.login }}"
+          LABELS=$(echo '${{ toJson(github.event.issue.labels) }}' | jq -r '.[].name' | paste -sd "," -)
+          
           BODY=$(echo '${{ github.event.issue.body }}' | sed 's/<!--.*-->//g' | awk '
-          BEGIN { print "h2. ✨ 어떤 기능인가요?"
+          BEGIN {
+            print "h2. 이슈 상세 정보"
+            print "* GitHub Issue URL: '${ISSUE_URL}'"
+            print "* 생성자: ${CREATOR}"
+            print "* 라벨: ${LABELS}"
+            print "\nh2. ✨ 어떤 기능인가요?"
             feature_section = 0
             todo_section = 0
             reference_section = 0
@@ -29,6 +38,7 @@ jobs:
           /^## 어떤 기능인가요\?/ {feature_section = 1; next}
           /^## 작업 상세 내용/ {feature_section = 0; todo_section = 1; print "\nh2. 📚 작업 상세 내용"; next}
           /^## 참고할만한 자료/ {todo_section = 0; reference_section = 1; print "\nh2. 👀 참고할만한 자료(선택)"; next}
+          /^!\[.*\]\(.*\)/ {gsub(/^!\[(.*)\]\((.*)\)/, "!\\2|thumbnail!"); print; next}
           feature_section && !/^$/ {print}
           todo_section {print}
           reference_section {print}
