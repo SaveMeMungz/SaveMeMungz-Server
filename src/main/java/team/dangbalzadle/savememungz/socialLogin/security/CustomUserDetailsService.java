@@ -1,9 +1,9 @@
 package team.dangbalzadle.savememungz.socialLogin.security;
 
 
-import com.example.springsocial.exception.ResourceNotFoundException;
-import com.example.springsocial.model.User;
-import com.example.springsocial.repository.UserRepository;
+import team.dangbalzadle.savememungz.socialLogin.exception.ResourceNotFoundException;
+import team.dangbalzadle.savememungz.socialLogin.model.User;
+import team.dangbalzadle.savememungz.socialLogin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,7 @@
 package team.dangbalzadle.savememungz.socialLogin.security.oauth2.user;
 
-import com.example.springsocial.exception.OAuth2AuthenticationProcessingException;
-import com.example.springsocial.model.AuthProvider;
+import team.dangbalzadle.savememungz.socialLogin.exception.OAuth2AuthenticationProcessingException;
+import team.dangbalzadle.savememungz.socialLogin.model.AuthProvider;
 
 import java.util.Map;
 

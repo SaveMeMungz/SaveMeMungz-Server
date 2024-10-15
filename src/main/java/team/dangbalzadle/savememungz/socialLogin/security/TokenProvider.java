@@ -1,6 +1,6 @@
 package team.dangbalzadle.savememungz.socialLogin.security;
 
-import com.example.springsocial.config.AppProperties;
+import team.dangbalzadle.savememungz.socialLogin.config.AppProperties;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
