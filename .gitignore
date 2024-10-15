@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/workspace.xml
+/.idea/workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
@@ -10,7 +10,7 @@
 #database connection info
 application.properties
 src/main/resources/application.yml
-../.gradle/
+gradle/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,java
