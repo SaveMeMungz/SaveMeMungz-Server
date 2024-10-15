@@ -2,6 +2,8 @@ name: Create Jira issue
 on:
   issues:
     types: [opened]
+  push:
+    branches: [ mater ]
 
 jobs:
   create-issue:
@@ -18,17 +20,33 @@ jobs:
       - name: Process Issue Body
         id: process_body
         run: |
-          BODY=$(cat << EOF
-          h2. 💥 이슈 설명
+          ISSUE_URL="${{ github.event.issue.html_url }}"
+          CREATOR="${{ github.event.issue.user.login }}"
+          LABELS=$(echo '${{ toJson(github.event.issue.labels) }}' | jq -r '.[].name' | paste -sd "," -)
           
-          > 추가하려는 기능에 대해 간결하게 설명해주세요
-          
-          h2. 📚 작업 상세 내용
-          * TODO
-          
-          h2. 👀 참고할만한 자료(선택)
-          EOF
-          )
+          BODY=$(echo '${{ github.event.issue.body }}' | sed 's/<!--.*-->//g' | awk '
+          BEGIN {
+            in_section = 0
+          }
+          /^## ✨ 어떤 기능인가요\?/ {
+            print "h2. ✨ 어떤 기능인가요?"
+            in_section = 1
+            next
+          }
+          /^## 📚 작업 상세 내용/ {
+            print "\nh2. 📚 작업 상세 내용"
+            in_section = 2
+            next
+          }
+          /^## 👀 참고할만한 자료/ {
+            print "\nh2. 👀 참고할만한 자료(선택)"
+            in_section = 3
+            next
+          }
+          in_section == 1 {print}
+          in_section == 2 {print}
+          in_section == 3 {print}
+          ')
           echo "processed_body<<EOF" >> $GITHUB_OUTPUT
           echo "$BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
