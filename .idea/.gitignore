@@ -9,7 +9,8 @@
 
 #database connection info
 application.properties
-
+src/main/resources/application.yml
+../.gradle/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,java
