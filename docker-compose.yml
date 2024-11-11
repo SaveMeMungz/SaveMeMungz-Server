@@ -5,6 +5,7 @@ services:
     restart: always
     container_name: mungdb
     environment:
+      MYSQL_ROOT_HOST: '%'
       MYSQL_DATABASE: mungdb
       MYSQL_ROOT_PASSWORD: 1234
     volumes:
