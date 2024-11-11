@@ -28,4 +28,6 @@ jobs:
             docker login
             docker pull alshu/savememungz-server:latest
             
-            docker-compose up --build -d
+            docker-compose down
+  
+            docker-compose up -d --force-recreate --no-deps
