@@ -1,3 +1,3 @@
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '1234';
+CREATE USER 'root'@'%' IDENTIFIED WITH 'caching_sha2_password' BY '1234';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
