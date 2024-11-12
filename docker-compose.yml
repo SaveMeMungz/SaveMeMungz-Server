@@ -16,9 +16,7 @@ services:
     networks:
       - springboot-mysql-net
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: alshu/savememungz-server:latest
     restart: always
     ports:
       - "8080:8080"
